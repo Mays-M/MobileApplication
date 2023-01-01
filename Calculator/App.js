@@ -1,20 +1,22 @@
 import { StatusBar } from 'expo-status-bar';
 import react,{useState} from 'react';
-import { StyleSheet, Text, View,TextInput, Keyboard } from 'react-native';
+import { StyleSheet, Text, View,TextInput,Button, Keyboard } from 'react-native';
 
 export default function App() {
-  const [number1 , setNumer1]=useState('0');
-  const [number2 , setNumer2]=useState('0');
-  const [result , setResult]=useState('0');
-  const buttonPressed=(e,calc) =>{
-    if(calc === '+') setResult(parseInt(number1) + parseInt(number2)+"");
-    else if(calc === '+-') setResult(parseInt(number1) - parseInt(number2)+"");
-    else if(calc === '*') setResult(parseInt(number1) * parseInt(number2)+"");
-    else if(calc === '/') setResult(parseInt(number1) / parseInt(number2)+"");
-    Keyboard.dismiss();
+  // use hooks to change number values
+  const [number1, setNumber1] = useState('0');
+  const [number2, setNumber2] = useState('0');
+  const [result, setResult] = useState('0');
 
-    
-  }
+  // button pressed - calculate
+const buttonPressed = (e,calc) => {
+  if (calc === '+') setResult(parseInt(number1) + parseInt(number2)+"");
+  else if (calc === '-') setResult(parseInt(number1) - parseInt(number2)+"");
+  else if (calc === '/') setResult(parseInt(number1) / parseInt(number2)+"");
+  else if (calc === '*') setResult(parseInt(number1) * parseInt(number2)+"");
+  Keyboard.dismiss();
+}
+  
 
   return (
     <View style={styles.container}>
@@ -24,9 +26,10 @@ export default function App() {
         <View style={styles.text}>
           <Text>Number 1:</Text>
         </View>
+        
         <View style={styles.textInput}>
-          <TextInput value={number1} onChange={text => setNumber1(text)} 
-          keyboardType={'numeric'} style={{textAligin:'right'}}></TextInput>
+          <TextInput placeholder ='0' value={number1}onChangeText={text => setNumber1(text)}  
+          keyboardType={'numeric'} style={{textAlign:'right'}} ></TextInput>
       </View>
       </View>
       <View style={styles.row}>
@@ -34,25 +37,34 @@ export default function App() {
         <Text>Number 2:</Text>
       </View>
       <View style={styles.textInput}>
-         <TextInput value ={number2} onChange={text => setNumer2(text)} 
-         keyboardType={'numeric'} style={{textAlign:'right'}} ></TextInput>
+         <TextInput placeholder ='0'value ={number2} onChangeText={text => setNumber2(text)} 
+         keyboardType={'numeric'} style={{textAlign:'right'}}></TextInput>
       </View>
+
       </View>
       <View style={styles.buttonRow}>
-        <Button title =" + " onPress={(e) => buttonPressed(e,'+')}/>
-        <Button title =" - " onPress={(e) => buttonPressed(e,'-')}/>
-        <Button title =" * " onPress={(e) => buttonPressed(e,'*')}/>
-        <Button title =" / " onPress={(e) => buttonPressed(e,'/')}/>
+          <Button title="  +  " onPress={(e) => buttonPressed(e,'+')}/>
+          <Button title="  -  " onPress={(e) => buttonPressed(e,'-')}/>
+          <Button title="  *  " onPress={(e) => buttonPressed(e,'*')}/>
+          <Button title="  /  " onPress={(e) => buttonPressed(e,'/')}/>
+
       </View>
-      <View style={styles.row}>
-        <View style={styles.text}>
-          <Text>Result: </Text>
-        </View>
-        <View style={styles.textInput}>
-          <TextInput value={result} style={{textAlign:'right'}}
-          edittable={flase}></TextInput>
-          </View>
-        </View>
+
+    
+<View style={styles.row}>
+  <View style={styles.text}>
+    <Text>Result:</Text>
+  </View>
+  <View style={styles.textInput}>
+  <TextInput 
+    placeholder="0" 
+    value={result} 
+    style={{textAlign:'right'}} 
+    editable={false}>
+  </TextInput>
+</View>
+
+</View>
   </View>
 
   );
@@ -68,7 +80,7 @@ const styles = StyleSheet.create({
   calculator:{
     fontSize:50,
     fontWeight:'blod',
-    marginBottom:20
+    marginBottom:20,
   },
   row:{
     flexDirection:'row',
@@ -76,7 +88,7 @@ const styles = StyleSheet.create({
   
   },
   text:{
-    backgroundColor:'lightgry',
+    backgroundColor:'lightgrey',
     justifyContent:'center',
     padding:5,
     width:100,
@@ -91,7 +103,7 @@ const styles = StyleSheet.create({
   buttonRow:{
     flexDirection:'row',
     marginTop:20,
-    marginBottom20,
+    marginBottom:20,
     justifyContent :'space-around',
     width:220,
   },
